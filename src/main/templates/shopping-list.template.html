@@ -1,0 +1,19 @@
+<h1>Welcome our shopping list application!! </h1>
+<form class="form-inline">
+  <div class="form-group">
+    <label for="itemList">Item</label>
+    <input type="text" ng-model="shoppingList.itemList" class="form-control" id="itemList" placeholder="Enter a item">
+  </div>
+  <div class="form-group">
+    <label for="itemAmount">Amount</label>
+    <input type="text" ng-model="shoppingList.itemAmount" class="form-control" id="itemAmount" placeholder="Amount">
+  </div>
+  <button type="submit" ng-click="shoppingList.saveItem()" class="btn btn-primary">Save</button>
+</form>
+
+<br>
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="item in shoppingList.itemsList">
+    {{ item.itemName }} {{ item.amount }}
+  </li>
+</ul>

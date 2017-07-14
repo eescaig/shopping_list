@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app='home' ng-strict-di>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+      .message { font-size: 1.3em; font-weight: bold; }
+    </style>
+    <title>My Shopping List!!!</title>
+  </head>
+  <body>
+
+      <div class="container">
+
+          <ui-view></ui-view>
+
+          <!-- Libraries -->
+          <script src="lib/angular.min.js"></script>
+          <script src="lib/angular-ui-router.min.js"></script>
+
+          <!-- Modules -->
+          <script src="src/home.module.js"></script>
+          <script src="src/main/shopping-list.module.js"></script>
+          <script src="src/dataapp/data.module.js"></script>
+
+          <!-- Routes -->
+          <script src="src/main/main.routes.js"></script>
+          <script src="src/dataapp/shopping-list.service.js"></script>
+          <script src="src/main/shopping-list.controller.js"></script>
+
+
+          <!-- <script src="src/menuapp/categorieslist.component.js"></script>
+          <script src="src/dataapp/menudata.service.js"></script>
+          <script src="src/menuapp/itemdetails.controller.js"></script> -->
+      </div>
+  </body>
+</html>
