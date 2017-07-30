@@ -1,19 +1,26 @@
-<h1>Welcome our shopping list application!! </h1>
-<form class="form-inline">
+<h1>Welcome to our shopping list application!! </h1>
+<form class="form-inline" name="slForm">
   <div class="form-group">
     <label for="itemList">Item</label>
-    <input type="text" ng-model="shoppingList.itemList" class="form-control" id="itemList" placeholder="Enter a item">
+    <input type="text" ng-model="shoppingList.itemList" class="form-control" id="itemList" required
+      placeholder="Enter a item">
   </div>
-  <div class="form-group">
+  <div class="form-group {{shoppingList.styleInput}}">
     <label for="itemAmount">Amount</label>
-    <input type="text" ng-model="shoppingList.itemAmount" class="form-control" id="itemAmount" placeholder="Amount">
+    <input type="text" ng-model="shoppingList.itemAmount" class="form-control" id="itemAmount" required
+      placeholder="Amount">
   </div>
   <button type="submit" ng-click="shoppingList.saveItem()" class="btn btn-primary">Save</button>
+  <br>
+  <div class="form-group message" ng-if="shoppingList.error">
+    <p class="navbar-text"><span class={{shoppingList.styleText}}>{{shoppingList.error}}</span></p>
+  </div>
 </form>
 
 <br>
 <ul class="list-group">
   <li class="list-group-item" ng-repeat="item in shoppingList.itemsList">
-    {{ item.itemName }} {{ item.amount }}
+    {{ item.name }} {{ item.amount }}
+    <button ng-click="shoppingList.removeItem($index);" class="btn btn-primary btn-sm">Delete</button>
   </li>
 </ul>

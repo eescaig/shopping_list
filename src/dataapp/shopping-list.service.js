@@ -2,29 +2,54 @@
 'use strict';
 
 angular.module('DataApp')
-.service('ShoppingListService', ShoppingListService);
+.service('ShoppingListService', ShoppingListService)
+.constant('ApiBasePath', "http://localhost:8080/shopItem");
 
 
-ShoppingListService.$inject = ['$window'];
-function ShoppingListService($window) {
+ShoppingListService.$inject = ['$q','$http', 'ApiBasePath'];
+function ShoppingListService($q, $http, ApiBasePath) {
   var service = this;
 
-  // Object login user
-  var itemsList = [];
-
+  // Method to set an item to shoppingList
   service.addItem = function (itemName, amount) {
-    var item = {
-      itemName: itemName,
-      amount: amount
+    var deferred = $q.defer();
+    var errorMessage = {
+      message: ""
     };
 
-    itemsList.push(item);
-    //$window.localStorage.setItem('shoppingList', item);
+    if(itemName!==undefined && amount!==undefined) {
+      var response = $http({
+        method: "POST",
+        url: ApiBasePath,
+        headers: {
+          'Content-Type': "application/json;charset=UTF-8"
+        },
+        data: { name: itemName, amount: amount}
+      });
+      deferred.resolve(response);
+    }
+    else {
+      errorMessage.message = "Please, fill the fields 'Item' and 'Amount' !!!!";
+      deferred.reject(errorMessage);
+    }
+    return deferred.promise;
   };
 
+  // Method to get the item's shoppingList
   service.getItems = function () {
-    return itemsList;
-    //return $window.localStorage.getItem('shoppingList');
+    var response = $http({
+      method: "GET",
+      url: ApiBasePath
+    });
+    return response;
+  };
+
+  service.removeItem = function (id) {
+    var response = $http({
+      method: "DELETE",
+      url: ApiBasePath + "/" + id
+    });
+    return response;
   };
 
 }
