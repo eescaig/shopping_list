@@ -2,10 +2,13 @@
 <html ng-app='home' ng-strict-di>
   <head>
     <meta charset="utf-8">
+    <!-- Angular Material style sheet -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <style>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="css/home.css">
+    <!--style>
       .message { font-size: 1.3em; font-weight: bold; }
-    </style>
+    </style-->
     <title>My Shopping List!!!</title>
   </head>
   <body>
@@ -18,20 +21,26 @@
           <script src="lib/angular.min.js"></script>
           <script src="lib/angular-ui-router.min.js"></script>
 
+          <!-- Angular Material requires Angular.js Libraries -->
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+          <!-- Angular Material Library -->
+          <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
           <!-- Modules -->
           <script src="src/home.module.js"></script>
-          <script src="src/main/shopping-list.module.js"></script>
+          <script src="src/main/shopping-lists.module.js"></script>
           <script src="src/dataapp/data.module.js"></script>
 
           <!-- Routes -->
-          <script src="src/main/main.routes.js"></script>
+          <script src="src/main.routes.js"></script>
           <script src="src/dataapp/shopping-list.service.js"></script>
-          <script src="src/main/shopping-list.controller.js"></script>
-
-
-          <!-- <script src="src/menuapp/categorieslist.component.js"></script>
-          <script src="src/dataapp/menudata.service.js"></script>
-          <script src="src/menuapp/itemdetails.controller.js"></script> -->
+          <script src="src/home.controller.js"></script>
+          <script src="src/main/shopping-lists.controller.js"></script>
+          <script src="src/main/edit-shopping-lists.controller.js"></script>
+          <script src="src/main/edit-items.controller.js"></script>
       </div>
   </body>
 </html>

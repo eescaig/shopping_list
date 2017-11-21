@@ -11,25 +11,25 @@ function ShoppingListService($q, $http, ApiBasePath) {
   var service = this;
 
   // Method to set an item to shoppingList
-  service.addItem = function (itemName, amount) {
+  service.addItem = function (itemName) {
     var deferred = $q.defer();
     var errorMessage = {
       message: ""
     };
 
-    if(itemName!==undefined && amount!==undefined) {
+    if(itemName!==undefined) {
       var response = $http({
         method: "POST",
         url: ApiBasePath,
         headers: {
           'Content-Type': "application/json;charset=UTF-8"
         },
-        data: { name: itemName, amount: amount}
+        data: { name: itemName}
       });
       deferred.resolve(response);
     }
     else {
-      errorMessage.message = "Please, fill the fields 'Item' and 'Amount' !!!!";
+      errorMessage.message = "Please, fill the field 'Item' !!!!";
       deferred.reject(errorMessage);
     }
     return deferred.promise;
@@ -51,7 +51,6 @@ function ShoppingListService($q, $http, ApiBasePath) {
     });
     return response;
   };
-
 }
 
 })();
