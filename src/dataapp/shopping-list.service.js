@@ -44,10 +44,10 @@ function ShoppingListService($q, $http, ApiBasePath) {
     return response;
   };
 
-  service.removeItem = function (id) {
+  service.removeItem = function (name) {
     var response = $http({
       method: "DELETE",
-      url: ApiBasePath + "/" + id
+      url: ApiBasePath + "/" + name
     });
     return response;
   };

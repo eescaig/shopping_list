@@ -6,14 +6,29 @@ angular.module('mainShoppingList')
 EditItemsController.$inject = ['ShoppingListService'];
 function EditItemsController(ShoppingListService) {
   var editItems = this;
-  editItems.itemsList;
   editItems.error = "";
   editItems.styleText = "";
   editItems.styleInput = "";
 
-  // Save items to list
-  editItems.saveItem = function() {
+  // Get items list
+  editItems.loadItemList = function() {
+    var promise = ShoppingListService.getItems();
 
+    promise.
+    then(function (response) {
+      editItems.itemsList = response.data;
+    })
+    .catch(function (errorResponse) {
+      editItems.error = errorResponse.message;
+      editItems.styleText = "text-danger";
+      editItems.styleInput = "has-error";
+    })
+  }
+
+  editItems.loadItemList();
+
+  // Save item to list
+  editItems.saveItem = function() {
     var promise = ShoppingListService.addItem(editItems.itemList);
     editItems.itemInsert = null;
     editItems.styleInput = "has-success";
@@ -22,33 +37,33 @@ function EditItemsController(ShoppingListService) {
     then(function (response) {
       editItems.itemInsert = response.data;
       console.log("Inserted item: "+ editItems.itemInsert.name);
-      return ShoppingListService.getItems();
+      return editItems.loadItemList();
     })
     .then(function (response) {
-      editItems.itemsList = response.data;
       editItems.clearFields();
     })
     .catch(function (errorResponse) {
-      editItems.error = errorResponse.message;
+      console.log(errorResponse);
+      console.log(errorResponse.status);
+      if(errorResponse.status==400) {
+        editItems.error = "El elemento que intenta insertar ya existe";
+      }
       editItems.styleText = "text-danger";
       editItems.styleInput = "has-error";
-      console.log(errorResponse.message);
+
     })
   }
 
-  editItems.removeItem = function (id) {
-     var promise = ShoppingListService.removeItem(id);
-     editItems.ItemRemoved = false;
+  // Delete item to list
+  editItems.removeItem = function (name) {
+     var promise = ShoppingListService.removeItem(name);
      promise.
      then(function (response) {
-       editItems.ItemRemoved = response.data;
-       console.log("editItems.ItemRemoved: "+ editItems.ItemRemoved);
-       if(editItems.ItemRemoved) {
-         return ShoppingListService.getItems();
-       }
+       console.log("Remove element " + response.toString());
+       return editItems.loadItemList();
      })
      .then(function (response) {
-       editItems.itemsList = response.data;
+       editItems.clearFields();
      })
      .catch(function (errorResponse) {
        editItems.error = "One error has happend while try delete element";
@@ -60,7 +75,6 @@ function EditItemsController(ShoppingListService) {
     editItems.styleText = "";
     editItems.styleInput = "";
     editItems.itemList = "";
-    editItems.itemAmount = "";
   }
 
 }

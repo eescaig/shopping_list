@@ -3,64 +3,83 @@
 angular.module('mainShoppingList')
 .controller('EditShoppingListController', EditShoppingListController);
 
-EditShoppingListController.$inject = ['ShoppingListService'];
-function EditShoppingListController(ShoppingListService) {
-  var editSpList = this;
-  editSpList.itemsList;
-  editSpList.error = "";
-  editSpList.styleText = "";
-  editSpList.styleInput = "";
+EditShoppingListController.$inject = ['ShoppingListService', '$window'];
+function EditShoppingListController(ShoppingListService, $window) {
+  var editShoppingList = this;
+  editShoppingList.itemsSelect = [];
+  editShoppingList.itemAmount = "";
+  editShoppingList.shoppingList = [];
+  editShoppingList.error = "";
+  editShoppingList.styleText = "";
+  editShoppingList.styleInput = "";
 
-  // Guarda el elemento en la lista y recupera el listado
-  editSpList.saveItem = function() {
-
-    var promise = ShoppingListService.addItem(editSpList.itemList, editSpList.itemAmount);
-    editSpList.itemInsert = null;
-    editSpList.styleInput = "has-success";
-
+  // Load items from service
+  editShoppingList.loadItemList = function() {
+    var promise = ShoppingListService.getItems();
     promise.
     then(function (response) {
-      editSpList.itemInsert = response.data;
-      console.log("Inserted item: "+ editSpList.itemInsert.name + " " + editSpList.itemInsert.amount);
-      return ShoppingListService.getItems();
-    })
-    .then(function (response) {
-      editSpList.itemsList = response.data;
-      editSpList.clearFields();
+      var foundItems = response.data;
+      angular.forEach(foundItems, function(value, key) {
+        if (foundItems!==undefined) {
+          editShoppingList.itemsSelect.push(value);
+        }
+      });
     })
     .catch(function (errorResponse) {
-      editSpList.error = errorResponse.message;
-      editSpList.styleText = "text-danger";
-      editSpList.styleInput = "has-error";
-      console.log(errorResponse.message);
+      editShoppingList.error = errorResponse.message;
+      editShoppingList.styleInput = "has-error";
     })
   }
 
-  editSpList.removeItem = function (id) {
-     var promise = ShoppingListService.removeItem(id);
-     editSpList.ItemRemoved = false;
-     promise.
-     then(function (response) {
-       editSpList.ItemRemoved = response.data;
-       console.log("editSpList.ItemRemoved: "+ editSpList.ItemRemoved);
-       if(editSpList.ItemRemoved) {
-         return ShoppingListService.getItems();
-       }
-     })
-     .then(function (response) {
-       editSpList.itemsList = response.data;
-     })
-     .catch(function (errorResponse) {
-       editSpList.error = "One error has happend while try delete elements";
-     })
+  editShoppingList.loadItemList();
+  // Load items in combo
+  editShoppingList.dataSelect = {
+      singleSelect: null,
+      availableOptions: editShoppingList.itemsSelect
+   };
+
+
+  // Add item to shoppingList
+  editShoppingList.addItemInShoppingList = function(item, quantity) {
+     var itemList = {
+       name: item,
+       quantity: quantity
+     };
+     if(item!=undefined && quantity!="" && !editShoppingList.containsObject(item, editShoppingList.shoppingList)) {
+       editShoppingList.shoppingList.push(itemList);
+       //$window.localStorage.setItem('shoppingList', item);
+       console.log(editShoppingList.shoppingList);
+     }
   }
 
-  editSpList.clearFields = function () {
-    editSpList.error = "";
-    editSpList.styleText = "";
-    editSpList.styleInput = "";
-    editSpList.itemList = "";
-    editSpList.itemAmount = "";
+  editShoppingList.containsObject = function(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+      console.log(list[i].name + " Obj: " + obj);
+        if (list[i].name === obj) {
+            return true;
+        }
+    }
+
+    return false;
+ };
+
+  editShoppingList.removeItem = function (index) {
+     editShoppingList.shoppingList.splice(index, 1);
+  }
+
+  editShoppingList.isEmpty = function() {
+    var isEmpty = true;
+    if(editShoppingList.shoppingList.length > 0)
+    isEmpty = false;
+    return isEmpty;
+  }
+
+  editShoppingList.clearFields = function () {
+    editShoppingList.error = "";
+    editShoppingList.styleText = "";
+    editShoppingList.styleInput = "";
+    editShoppingList.itemAmount = "";
   }
 
 }

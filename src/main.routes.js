@@ -26,7 +26,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state('main.edit', {
     url: 'editsplists',
     templateUrl: 'src/main/templates/edit-shopping-lists.template.html',
-    controller: "EditShoppingListController as editSpList"
+    controller: "EditShoppingListController as editShoppingList"
   })
   // Edit Items Nav 3
   .state('main.items', {

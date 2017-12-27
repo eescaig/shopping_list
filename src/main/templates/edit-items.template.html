@@ -1,3 +1,33 @@
+<h3>Item List</h3>
+<!-- <ul class="list-group">
+  <li class="list-group-item list-group-item-info d-flex justify-content-between align-items-center" ng-repeat="item in editItems.itemsList">
+    {{ item.name }}
+    <button ng-click="editItems.removeItem(item.name);" class="btn btn-primary btn-sm">Delete</button>
+  </li>
+</ul> -->
+
+<!-- <div class="">
+    <div class="row border" ng-repeat="item in editItems.itemsList">
+        <div class="col col-md-2">
+          {{ item.name }}
+        </div>
+        <div class="col col-md-2">
+          <button ng-click="editItems.removeItem(item.name);" class="btn btn-primary btn-sm">Delete</button>
+        </div>
+    </div>
+</div> -->
+
+<table class="table-bordered table-responsive-sm">
+  <tbody>
+     <tr ng-repeat="item in editItems.itemsList">
+        <th class="col-sm-1" scope="row">{{$index+1}}</th>
+        <td class="col-sm-8">{{ item.name }}</td>
+        <td class="col-sm-2"><button ng-click="editItems.removeItem(item.name);" class="btn btn-primary btn-sm">Delete</button></td>
+     </tr>
+  </tbody>
+</table>
+
+<br>
 <form class="form-inline" name="editItemsForm">
   <div class="form-group">
     <label for="itemList">Item</label>
@@ -10,10 +40,3 @@
     <p class="navbar-text"><span class={{editItems.styleText}}>{{editItems.error}}</span></p>
   </div>
 </form>
-<br>
-<ul class="list-group">
-  <li class="list-group-item" ng-repeat="item in editItems.itemsList">
-    {{ item.name }}
-    <button ng-click="editItems.removeItem($index);" class="btn btn-primary btn-sm">Delete</button>
-  </li>
-</ul>
