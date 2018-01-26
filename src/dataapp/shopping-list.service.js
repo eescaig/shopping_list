@@ -3,51 +3,50 @@
 
 angular.module('DataApp')
 .service('ShoppingListService', ShoppingListService)
-.constant('ApiBasePath', "http://localhost:8080/shopItem");
+.constant('ApiBasePathList', "http://localhost:8080/api/shoppingList");
 
 
-ShoppingListService.$inject = ['$q','$http', 'ApiBasePath'];
-function ShoppingListService($q, $http, ApiBasePath) {
+ShoppingListService.$inject = ['$q','$http', 'ApiBasePathList'];
+function ShoppingListService($q, $http, ApiBasePathList) {
   var service = this;
 
   // Method to set an item to shoppingList
-  service.addItem = function (itemName) {
+  service.addShoppingList = function (nameList, shoppingList) {
     var deferred = $q.defer();
     var errorMessage = {
       message: ""
     };
-
-    if(itemName!==undefined) {
+    console.log("Name List: "+nameList + " Lista: "+shoppingList);
+    // if(nameList!==undefined && nameList!=="") {
       var response = $http({
         method: "POST",
-        url: ApiBasePath,
+        url: ApiBasePathList,
         headers: {
           'Content-Type': "application/json;charset=UTF-8"
         },
-        data: { name: itemName}
+        data: {
+          nameList: nameList,
+          list: shoppingList
+        }
       });
       deferred.resolve(response);
-    }
-    else {
-      errorMessage.message = "Please, fill the field 'Item' !!!!";
-      deferred.reject(errorMessage);
-    }
+    
     return deferred.promise;
   };
 
   // Method to get the item's shoppingList
-  service.getItems = function () {
+  service.getShoppingList = function () {
     var response = $http({
       method: "GET",
-      url: ApiBasePath
+      url: ApiBasePathList
     });
     return response;
   };
 
-  service.removeItem = function (name) {
+  service.removeShoppingList = function (nameList) {
     var response = $http({
       method: "DELETE",
-      url: ApiBasePath + "/" + name
+      url: ApiBasePathList + "/" + nameList
     });
     return response;
   };

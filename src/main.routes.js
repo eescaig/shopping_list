@@ -20,7 +20,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state('main.shoppinglists', {
     url: 'shoppinglists',
     templateUrl: 'src/main/templates/shopping-lists.template.html',
-    controller: "ShoppingListController as shoppingList"
+    controller: "ShoppingListsController as shoppingList"
   })
   // Edit Shopping lists Nav 2
   .state('main.edit', {

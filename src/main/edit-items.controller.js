@@ -3,8 +3,8 @@
 angular.module('mainShoppingList')
 .controller('EditItemsController', EditItemsController);
 
-EditItemsController.$inject = ['ShoppingListService'];
-function EditItemsController(ShoppingListService) {
+EditItemsController.$inject = ['ShoppingItemService'];
+function EditItemsController(ShoppingItemService) {
   var editItems = this;
   editItems.error = "";
   editItems.styleText = "";
@@ -12,7 +12,7 @@ function EditItemsController(ShoppingListService) {
 
   // Get items list
   editItems.loadItemList = function() {
-    var promise = ShoppingListService.getItems();
+    var promise = ShoppingItemService.getItems();
 
     promise.
     then(function (response) {
@@ -29,7 +29,7 @@ function EditItemsController(ShoppingListService) {
 
   // Save item to list
   editItems.saveItem = function() {
-    var promise = ShoppingListService.addItem(editItems.itemList);
+    var promise = ShoppingItemService.addItem(editItems.itemList);
     editItems.itemInsert = null;
     editItems.styleInput = "has-success";
 
@@ -56,7 +56,7 @@ function EditItemsController(ShoppingListService) {
 
   // Delete item to list
   editItems.removeItem = function (name) {
-     var promise = ShoppingListService.removeItem(name);
+     var promise = ShoppingItemService.removeItem(name);
      promise.
      then(function (response) {
        console.log("Remove element " + response.toString());

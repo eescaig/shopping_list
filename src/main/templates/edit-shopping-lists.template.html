@@ -1,49 +1,48 @@
-<form class="form-inline" name="slForm">
-  <div class="form-group">
-    <label for="itemList">Item</label>
-
-    <select name="itemsSelect" id="itemsSelect" class="form-control" required placeholder="Enter a item"
+<form class="form-inline form-control widthcomponents" name="slForm">
+  <div class="form-group groupspace">
+    <label for="itemList" class="form-control-sm groupspace">Item</label>
+    <select name="itemsSelect" id="itemsSelect" class="form-control-sm groupspace" required placeholder="Enter a item"
       ng-options="option.name for option in editShoppingList.dataSelect.availableOptions track by option.name"
       ng-model="editShoppingList.dataSelect.singleSelect">
     </select>
-    <!-- <tt>option = {{editShoppingList.dataSelect.singleSelect}}</tt><br/> -->
-    <!-- <input type="text" ng-model="editShoppingList.itemList" class="form-control" id="itemList" required
-      placeholder="Enter a item"> -->
   </div>
-  <div class="form-group {{editShoppingList.styleInput}}">
-    <label for="itemAmount">Amount</label>
-    <input type="text" ng-model="editShoppingList.itemAmount" class="form-control" id="itemAmount" required
+  <div class="form-group {{editShoppingList.styleInput}} groupspace">
+    <label for="itemAmount" class="form-control-sm groupspace">Amount</label>
+    <input type="text" ng-model="editShoppingList.itemAmount" class="form-control-sm groupspace" id="itemAmount" required
       placeholder="Amount">
   </div>
   <button type="submit" ng-click="editShoppingList.addItemInShoppingList(editShoppingList.dataSelect.singleSelect.name, editShoppingList.itemAmount)"
-          class="btn btn-primary">Add</button>
+          class="btn btn-primary btn-sm">Add</button>
 
-  <!-- <div class="form-group message" ng-if="editShoppingList.error">
+  <div class="form-group message" ng-if="editShoppingList.existItemInList">
     <p class="navbar-text"><span class={{editShoppingList.styleText}}>{{editShoppingList.error}}</span></p>
-  </div> -->
+  </div>
 </form>
 
 <br>
-<!-- <ul class="list-group">
-  <li class="list-group-item" ng-repeat="item in editShoppingList.shoppingList">
-    {{ item.name }} - {{ item.quantity }}
-    <button ng-click="editShoppingList.removeItem($index);" class="btn btn-primary btn-sm">Delete</button>
-  </li>
-</ul> -->
 
-<table class="table-bordered table-responsive-sm">
-  <thead ng-if="!editShoppingList.isEmpty()">
+<table class="table-bordered table-responsive-sm widthcomponents">
+  <thead class="bg-primary text-white" ng-if="!editShoppingList.isEmpty()">
     <tr>
-      <th scope="col"><p class="text-center">#</p></th>
-      <th scope="col"><p class="text-center">Item - Quantity</p></th>
-      <th scope="col"></th>
+      <th scope="row"><p class="text-center">#</p></th>
+      <th class="col-sm-8"><p class="text-center">Item - Quantity</p></th>
+      <th class="col-sm-2"></th>
     </tr>
   </thead>
   <tbody>
-     <tr ng-repeat="item in editShoppingList.shoppingList">
-        <th class="col-sm-1" scope="row">{{$index+1}}</th>
-        <td class="col-sm-8">{{ item.name }} - {{ item.quantity }}</td>
-        <td class="col-sm-2"><button ng-click="editShoppingList.removeItem($index);" class="btn btn-primary btn-sm">Delete</button></td>
+     <tr ng-repeat="addItem in editShoppingList.shoppingList">
+        <th scope="row">{{$index+1}}</th>
+        <td class="col-sm-8">{{ addItem.item.name }} - {{ addItem.amount }}</td>
+        <td class="col-sm-2"><button ng-click="editShoppingList.removeItem($index);" class="btn btn-outline-info btn-sm">Delete</button></td>
      </tr>
   </tbody>
 </table>
+
+<br>
+<form class="form-inline form-control widthcomponents" name="slForm" ng-if="!editShoppingList.isEmpty()">
+    <label for="nameList" class="form-control-sm groupspace">Name of List</label>
+    <input type="text" ng-model="editShoppingList.nameList" class="form-control-sm groupspace" id="nameList" required
+        placeholder="nameList">
+    <button type="submit" ng-click="editShoppingList.saveShoppingList(editShoppingList.nameList, editShoppingList.shoppingList);"
+            class="btn btn-primary btn-sm">Save Shopping List</button>
+</form>

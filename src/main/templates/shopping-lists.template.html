@@ -1,1 +1,12 @@
-
+<h3>Shopping Lists</h3>
+<table class="table table-responsive-sm widthcomponents">
+  <tbody>
+     <tr ng-repeat="list in shoppingList.allMyShoppingList">
+        <th scope="row">{{$index+1}}</th>
+        <td class="col-sm-1">{{ list.nameList }} :
+            <span ng-repeat="elem in list.list"> . {{elem.item.name}} </span>
+        </td>
+        <td class="col-sm-1"><button ng-click="shoppingList.removeShoppingList(list.nameList);" class="btn btn-outline-info btn-sm">Delete</button></td>
+     </tr>
+  </tbody>
+</table>
