@@ -3,7 +3,7 @@
 
 angular.module('DataApp')
 .service('ShoppingItemService', ShoppingItemService)
-.constant('ApiBasePath', "http://localhost:8080/api/shopItem");
+.constant('ApiBasePath', "https://shopping-app-backend.herokuapp.com/api/shopItem");
 
 
 ShoppingItemService.$inject = ['$q','$http', 'ApiBasePath'];

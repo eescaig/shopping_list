@@ -3,7 +3,7 @@
 
 angular.module('DataApp')
 .service('ShoppingListService', ShoppingListService)
-.constant('ApiBasePathList', "http://localhost:8080/api/shoppingList");
+.constant('ApiBasePathList', "https://shopping-app-backend.herokuapp.com/api/shoppingList");
 
 
 ShoppingListService.$inject = ['$q','$http', 'ApiBasePathList'];
@@ -30,7 +30,7 @@ function ShoppingListService($q, $http, ApiBasePathList) {
         }
       });
       deferred.resolve(response);
-    
+
     return deferred.promise;
   };
 
