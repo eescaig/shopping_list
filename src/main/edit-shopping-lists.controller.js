@@ -36,7 +36,7 @@ function EditShoppingListController(ShoppingItemService, ShoppingListService) {
   editShoppingList.loadItemList();
   // Load items in combo
   editShoppingList.dataSelect = {
-      singleSelect: null,
+      singleSelect: "",
       availableOptions: editShoppingList.itemsSelect
    };
 
@@ -51,7 +51,6 @@ function EditShoppingListController(ShoppingItemService, ShoppingListService) {
      if(addItem!=undefined && amount!="") {
          if(!editShoppingList.existItemInList) {
            editShoppingList.shoppingList.push(itemList);
-           //$window.localStorage.setItem('shoppingList', item);
            console.log(editShoppingList.shoppingList);
          }
          else {
