@@ -2,8 +2,9 @@
   <div class="form-group groupspace">
     <label for="itemList" class="form-control-sm groupspace">Item</label>
     <select name="itemsSelect" id="itemsSelect" class="form-control-sm groupspace" required placeholder="Enter a item"
-      ng-options="option.name for option in editShoppingList.dataSelect.availableOptions track by option.name"
       ng-model="editShoppingList.dataSelect.singleSelect">
+      <option value="">-- Select an item --</option>
+      <option ng-repeat="option in editShoppingList.dataSelect.availableOptions" value="{{option.name}}">{{option.name}}</option>
     </select>
   </div>
   <div class="form-group {{editShoppingList.styleInput}} groupspace">
@@ -11,7 +12,7 @@
     <input type="text" ng-model="editShoppingList.itemAmount" class="form-control-sm groupspace" id="itemAmount" required
       placeholder="Amount">
   </div>
-  <button type="submit" ng-click="editShoppingList.addItemInShoppingList(editShoppingList.dataSelect.singleSelect.name, editShoppingList.itemAmount)"
+  <button type="submit" ng-click="editShoppingList.addItemInShoppingList(editShoppingList.dataSelect.singleSelect, editShoppingList.itemAmount)"
           class="btn btn-primary btn-sm">Add</button>
 
   <div class="form-group message" ng-if="editShoppingList.existItemInList">

@@ -28,7 +28,7 @@ function ShoppingListsController(ShoppingListService) {
       //                  };
       //     return eachList;
       // });
-      console.log("listado todas shoppingList: " + JSON.stringify(shoppingList.allMyShoppingList));
+      //console.log("listado todas shoppingList: " + JSON.stringify(shoppingList.allMyShoppingList));
     })
     .catch(function (errorResponse) {
       shoppingList.error = errorResponse.message;
